@@ -1,0 +1,129 @@
+<!-- <div><p>Bank Details</p></div> -->
+<!-- <div class="fieldset"> -->
+<mat-card>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-6 x justify-content-center">
+
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="menu-box">
+                        <div class="side-menu-list">
+                            <ul class="menu-items">
+                                <li (click)="goTo('NetBanking')"
+                                    [ngClass]="{ 'onActive' :selectedMenu == 'NetBanking'}">
+                                    <i class="material-icons">
+                                        account_circle
+                                    </i>Net Banking
+                                </li>
+                                <li (click)="goTo('PG')" [ngClass]="{ 'onActive' :selectedMenu == 'PG'}">
+                                    <i class="material-icons">
+                                        assignment
+
+                                    </i> PG/Credit/Debit
+                                </li>
+                                <li (click)="goTo('Upi')" [ngClass]="{ 'onActive' :selectedMenu == 'Upi'}">
+
+                                    <i class="material-icons">
+                                        swap_horiz
+                                    </i> UPI Payment
+                                </li>
+                                <li (click)="goTo('OTC')" [ngClass]="{ 'onActive' :selectedMenu == 'OTC'}">
+
+                                    <i class="material-icons">
+                                        swap_horiz
+                                    </i> Offline(OTC)
+                                </li>
+                                <li (click)="goTo('NEFT')" [ngClass]="{ 'onActive' :selectedMenu == 'NEFT'}">
+
+                                    <i class="material-icons">
+                                        swap_horiz
+                                    </i> NEFT/RTGS
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6" style="margin-top: -50px;">
+                    <div class="row">
+                        <div class="side-menu-content">
+                            <div class="tabs" *ngIf="selectedMenu=='NetBanking' ">
+
+                                <div class="cont-main">
+                                    <div class="cont-checkbox col-md-4" *ngFor="let bank of Banks; index as i">
+                                        <input type="radio" name="myRadio" [id]="'myRadio-' + i" />
+                                        <label [for]="'myRadio-' + i">
+                                            <img [src]="bank.img" />
+                                            <span class="cover-checkbox">
+                                                <svg viewBox="0 0 12 10">
+                                                    <polyline points="1.5 6 4.5 9 10.5 1">
+                                                    </polyline>
+                                                </svg>
+                                            </span>
+                                            <div class="info">{{ bank.name }}</div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-12 col-sm-12" style="border: 1em;">
+                    <div class="fieldsetInfo">
+                        <div class="row">
+                            <!-- <div class="col-md-3"> -->
+                            <p>GRN</p>
+                            <!-- </div>
+                            <div class="col-md-9"> -->
+                            <p>{{GRN}}</p>
+                            <!-- </div> -->
+                        </div>
+                        <div class="row">
+                            <!-- <div class="col-md-3"> -->
+                            <p>Department</p>
+                            <!-- </div>
+                            <div class="col-md-9"> -->
+                            <p>{{deptName}}</p>
+                        </div>
+                        <!-- </div> -->
+                        <div class="row">
+                            <!-- <div class="col-md-3"> -->
+                            <p>Office</p>
+                            <!-- </div>
+                            <div class="col-md-9"> -->
+                            <p>{{officeName}}</p>
+                        </div>
+                        <!-- </div> -->
+                        <div class="row">
+                            <!-- <div class="col-md-3"> -->
+                            <p>Treasury</p>
+                            <!-- </div>
+                            <div class="col-md-9"> -->
+                            <p>
+                                {{treasuryName}}
+                            </p>
+                            <!-- </div> -->
+                        </div>
+
+                        <!-- <mat-label>GRN </mat-label> -->
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</mat-card>
+
+<div class="row">
+    <div style="text-align: right">
+        <button class="btn btn-primary" mat-raised-button color="primary" (click)="btn_FinalSubmit()">Pay - &#8377;
+            {{TotalAmount}}</button>
+    </div>
+</div>
+<!-- </div> -->
+
+<div *ngIf="this.loader.getLoading()" class="cssload-container">
+    <div class="cssload-speeding-wheel"></div>
+</div>

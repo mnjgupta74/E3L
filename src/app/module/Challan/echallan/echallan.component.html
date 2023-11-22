@@ -1,0 +1,502 @@
+<div class="container">
+    <div class="content-wrapper">
+        <div class="content">
+            <!-- <div class="row">
+                <div class="col-md-12 col-sm-12 col-12 x justify-content-center">
+                    <div
+                        style="background: #20b3f9; margin-bottom: 4px; color: white; font-size: 20px;text-align: center;">
+                        E-CHALLAN</div>
+                </div>
+            </div> -->
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-12 x justify-content-center">
+                    <mat-stepper labelPosition="bottom" [linear]="isLinear" #stepper>
+                        <mat-step [stepControl]="firstFormGroup">
+                            <form [formGroup]="firstFormGroup">
+                                <ng-template matStepLabel>Service For</ng-template>
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 col-12 x justify-content-center">
+                                        <span class="deptSpan">For : </span><span
+                                            style="padding-left: 5px;font-weight:bold">{{getSharedData.Deptname}}</span>
+                                    </div>
+                                </div>
+                                <div class="fieldset">
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-12 col-6 x justify-content-center">
+                                            <mat-form-field class="w-100" appearance="outline"
+                                                style="margin-top: 30px;">
+                                                <mat-label>District</mat-label>
+                                                <input type="text" placeholder="Pick one" aria-label="Number" matInput
+                                                    formControlName="districtGroupsFilterCtrl"
+                                                    [matAutocomplete]="auto_Distict" [(ngModel)]="SelectedDistrict">
+                                                <mat-icon class=""
+                                                    style=" position: absolute;right:2px; top:15px">arrow_drop_down</mat-icon>
+                                                <mat-autocomplete autoActiveFirstOption #auto_Distict="matAutocomplete"
+                                                    [displayWith]="displayFn_District">
+
+                                                    <mat-optgroup *ngFor="let group of filteredDistrictGroups | async"
+                                                        [label]="group.treasuryName">
+                                                        <mat-option *ngFor="let tresry of group.treasuryGroup"
+                                                            (click)="OnDistrictSelected(SelectedDistrict)"
+                                                            [value]="tresry">
+                                                            {{tresry.treasuryName}}
+                                                        </mat-option>
+                                                    </mat-optgroup>
+                                                </mat-autocomplete>
+                                                <mat-error
+                                                    *ngIf="firstFormGroup.controls['districtGroupsFilterCtrl'].hasError('required')">
+                                                    Please Select District!
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-12 col-6 x justify-content-center">
+                                            <mat-form-field class="w-100" appearance="outline" style="margin-top: 10px;">
+                                                <mat-label>Service Obtain From Office</mat-label>
+                                                <input type="text" placeholder="Pick one" aria-label="Number" matInput
+                                                    formControlName='officeCtrl' [matAutocomplete]="auto_Office"
+                                                    [(ngModel)]="SelectedOffice">
+                                                <mat-icon class=""
+                                                    style=" position: absolute;right:2px; top:15px">arrow_drop_down</mat-icon>
+                                                <mat-autocomplete autoActiveFirstOption #auto_Office="matAutocomplete"
+                                                    [displayWith]="displayFn_Office">
+                                                    <mat-option *ngFor="let office of officefiltered | async"
+                                                        (click)="OnOfficeSelected(SelectedOffice)" [value]="office">
+                                                        {{office.officename}}
+                                                    </mat-option>
+                                                </mat-autocomplete>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-12 col-12 x justify-content-center">
+                                            <mat-form-field class="w-100" appearance="outline" style="margin-top: 10px;">
+                                                <mat-label>Treasury</mat-label>
+                                                <input type="text" placeholder="Pick one" aria-label="Number" matInput
+                                                    formControlName='treasuryCtrl' [matAutocomplete]="auto_Treasury"
+                                                    [(ngModel)]="SelectedTreasury">
+                                                <mat-icon class=""
+                                                    style=" position: absolute;right:2px; top:15px">arrow_drop_down</mat-icon>
+                                                <mat-autocomplete autoActiveFirstOption #auto_Treasury="matAutocomplete"
+                                                    [displayWith]="displayFn_Treasury">
+                                                    <mat-option *ngFor="let x of treasuryfiltered | async"
+                                                        (click)="OnTreasurySelected(SelectedTreasury)" [value]="x">
+                                                        {{x.TreasuryName}}
+                                                    </mat-option>
+                                                </mat-autocomplete>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-3 col-sm-6 col-6 x justify-content-center">
+                                            <mat-form-field class="w-100" appearance="outline">
+                                                <mat-label>Choose FromDate</mat-label>
+                                                <input matInput [matDatepicker]="FromDatepicker" #txtFromDate
+                                                    formControlName='frmDate'>
+                                                <mat-hint>MM/DD/YYYY</mat-hint>
+                                                <mat-datepicker-toggle matIconSuffix
+                                                    [for]="FromDatepicker"></mat-datepicker-toggle>
+                                                <mat-datepicker #FromDatepicker></mat-datepicker></mat-form-field>
+                                        </div>
+                                        <div class="col-md-3 col-sm-6 col-6 x justify-content-center">
+                                            <mat-form-field class="w-100" appearance="outline">
+                                                <mat-label>Choose ToDate</mat-label>
+                                                <input matInput [matDatepicker]="ToDatepicker" #txtToDate
+                                                    formControlName='toDate'>
+                                                <mat-hint>MM/DD/YYYY</mat-hint>
+                                                <mat-datepicker-toggle matIconSuffix
+                                                    [for]="ToDatepicker"></mat-datepicker-toggle>
+                                                <mat-datepicker #ToDatepicker></mat-datepicker>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-top: 30px;">
+                                    <div class="col-md-3 col-sm-6 col-6 x justify-content-left">
+                                        <button mat-raised-button color="primary" matStepperNext="false"
+                                            (click)="btn_Fnext()">Next</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </mat-step>
+                        <mat-step [stepControl]="secondFormGroup">
+                            <form [formGroup]="secondFormGroup">
+                                <ng-template matStepLabel>Purpose For</ng-template>
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 col-12 x justify-content-center">
+                                        <span class="deptSpan">For : </span><span
+                                            style="padding-left: 5px;font-weight:bold">{{getSharedData.Deptname}}</span>
+                                    </div>
+
+                                </div>
+                                <div class="fieldset">
+                                    <!-- <h1><span>Purpose For: </span></h1> -->
+                                    <div class="row">
+                                        <!-- <div class="col-md-12 col-sm-12 col-6 x justify-content-center" > -->
+                                        <table datatable class="table table-hover" style="border: none;">
+                                            <!-- <thead>
+                                                <tr>
+                                                    <th>Sr.No.</th>
+                                                    <th class="text-center" *ngFor="let heading of HeadingList">
+                                                        {{heading}}</th>
+                                                </tr>
+                                            </thead> -->
+                                            <tbody>
+                                                <tr *ngFor="let item of FinalBH;let srNo = index">
+                                                    <!-- <td>{{srNo + 1}}</td> -->
+                                                    <div class="row">
+                                                        <div class="col-12 col-sm-6 col-md-6">
+                                                            <td>
+                                                                {{item.BudgetHead}}
+                                                            </td>
+                                                        </div>
+                                                        <div class="col-6 col-sm-6 col-md-6"
+                                                            style="text-align: -webkit-right;height: 40px;">
+                                                            <td>
+                                                                <mat-form-field class="w-100 mat-form-field-inputtxt"
+                                                                    appearance="outline">
+                                                                    <mat-label>Amount</mat-label>
+                                                                    <input matInput placeholder="Placeholder"
+                                                                        formControlName="amountCtrl"
+                                                                        [(ngModel)]="item.Amount">
+                                                                </mat-form-field>
+
+                                                            </td>
+                                                        </div>
+                                                    </div>
+                                                    <!-- (ngModelChange)="onSearchChange($event)" -->
+
+                                                </tr>
+                                                <!-- <tr *ngFor="let item of FinalBH;"">
+                                                    <td>
+                                                    <span>Total: {{ getTotal(FinalBH) }}</span>
+                                                    </td>
+                                                </tr> -->
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                    <div class="row">
+                                        <table datatable class="table table-hover" style="border: none;">
+                                            <tbody>
+                                                <tr>
+                                                    <div class="row">
+
+                                                        <div class="col-sm-9 col-md-9">
+                                                            <td>
+                                                                <mat-label>NetAmount </mat-label>
+                                                            </td>
+                                                        </div>
+                                                        <div class="col-sm-3 col-md-3 pull-right x justify-content-left"
+                                                            style="text-align: -webkit-right;height: 40px;">
+                                                            <td>
+                                                                <mat-form-field
+                                                                    class="mat-form-field-inputtxt x justify-content-left"
+                                                                    appearance="outline">
+                                                                    <mat-label>Total</mat-label>
+
+                                                                    <!-- <label class="x justify-content-left">{{ getTotal(FinalBH) }} </label> -->
+                                                                    <!-- <mat-label>{{ getTotal(FinalBH) }}</mat-label> -->
+                                                                    <!-- <span>Total: {{ getTotal(FinalBH) }}</span> -->
+                                                                    <input matInput placeholder="Placeholder" readonly
+                                                                        formControlName="netAmountCtrl"
+                                                                        ngModel="{{ getTotal(FinalBH) }}">
+                                                                </mat-form-field>
+                                                            </td>
+                                                        </div>
+                                                    </div>
+                                                </tr>
+                                                <tr>
+                                                    <div class="row">
+
+                                                        <div class="col-6 col-sm-6 col-md-6">
+                                                            <td>
+                                                                <mat-label>Permanent Account Number(PAN)</mat-label>
+                                                            </td>
+                                                        </div>
+                                                        <div class="col-6 col-sm-6 col-md-6"
+                                                            style="text-align: -webkit-right;height: 40px;">
+                                                            <td>
+                                                                <mat-form-field class="mat-form-field-inputtxt"
+                                                                    appearance="outline">
+                                                                    <mat-label>PAN</mat-label>
+                                                                    <input matInput placeholder="Placeholder"
+                                                                        formControlName="panCtrl">
+                                                                </mat-form-field>
+                                                            </td>
+                                                        </div>
+                                                    </div>
+                                                </tr>
+                                                <tr>
+                                                    <div class="row">
+
+                                                        <div class="col-6 col-sm-6 col-md-6">
+                                                            <td>
+                                                                <mat-label>Payment Mode</mat-label>
+                                                            </td>
+                                                        </div>
+                                                        <div class="col-6 col-sm-6 col-md-6"
+                                                            style="text-align: -webkit-right;height: 40px;">
+                                                            <td>
+
+                                                                <mat-radio-group aria-label="Select an option"
+                                                                    name="radioButtons" [(ngModel)]="radioOptions"
+                                                                    formControlName="rblTypeCtrl"
+                                                                    (change)="onRadioButtonChange($event)">
+                                                                    <mat-radio-button color="primary" [checked]="true"
+                                                                        value="N">Online</mat-radio-button>
+                                                                    <mat-radio-button color="primary" class="ms-3"
+                                                                        value="M">Manual</mat-radio-button>
+                                                                </mat-radio-group>
+                                                            </td>
+                                                        </div>
+                                                    </div>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <button mat-stroked-button color="primary" matStepperPrevious>Back</button>
+                                    <button mat-raised-button color="primary" matStepperNext
+                                        (click)="btn_Snext()">Next</button>
+                                </div>
+                            </form>
+                        </mat-step>
+                        <mat-step [stepControl]="thirdFormGroup">
+                            <form [formGroup]="thirdFormGroup">
+                                <ng-template matStepLabel>Remitter Info</ng-template>
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 col-12 x justify-content-center">
+                                        <span class="deptSpan">For : </span><span
+                                            style="padding-left: 5px;font-weight:bold">{{getSharedData.Deptname}}</span>
+                                    </div>
+
+                                </div>
+                                <div class="fieldset">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-md-6" style="padding-top: 10px;">
+                                                <mat-label>Remitter's Name</mat-label>
+                                            </div>
+                                            <div class="col-md-6 pull-right position:right">
+                                                <mat-form-field appearance="outline" class="w-100">
+                                                    <mat-label>Remitter's Name</mat-label>
+                                                    <input matInput formControlName="nameCtrl"
+                                                        placeholder="Ex. 1 Main St, New York, NY" required>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6" style="padding-top: 10px;">
+                                                <mat-label>Mobile No</mat-label>
+                                            </div>
+                                            <div class="col-md-6 pull-right position:right">
+                                                <mat-form-field appearance="outline" class="w-100">
+                                                    <mat-label>Mobile No</mat-label>
+                                                    <input matInput formControlName="mobileCtrl"
+                                                        placeholder="Ex. 1 Main St, New York, NY" required>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6" style="padding-top: 10px;">
+                                                <mat-label>City</mat-label>
+                                            </div>
+                                            <div class="col-md-6 pull-right position:right">
+                                                <mat-form-field appearance="outline" class="w-100">
+                                                    <mat-label>City</mat-label>
+                                                    <input matInput formControlName="cityCtrl"
+                                                        placeholder="Ex. 1 Main St, New York, NY" required>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6" style="padding-top: 10px;">
+                                                <mat-label>TIN/Lease/Actt./ Vehicle/Tax-Id No</mat-label>
+                                            </div>
+                                            <div class="col-md-6 pull-right position:right">
+                                                <mat-form-field appearance="outline" class="w-100">
+                                                    <mat-label>TIN/Lease/Actt./ Vehicle/Tax-Id No</mat-label>
+                                                    <input matInput formControlName="tinNoCtrl"
+                                                        placeholder="Ex. 1 Main St, New York, NY" required>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6" style="padding-top: 10px;">
+                                                <mat-label>Address</mat-label>
+                                            </div>
+                                            <div class="col-md-6 pull-right position:right">
+                                                <mat-form-field appearance="outline" class="w-100">
+                                                    <mat-label>Address</mat-label>
+                                                    <input matInput formControlName="addressCtrl"
+                                                        placeholder="Ex. 1 Main St, New York, NY" required>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6" style="padding-top: 10px;">
+                                                <mat-label>Remarks</mat-label>
+                                            </div>
+                                            <div class="col-md-6 pull-right position:right">
+                                                <mat-form-field appearance="outline" class="w-100">
+                                                    <mat-label>Remarks</mat-label>
+                                                    <input matInput formControlName="remarksCtrl"
+                                                        placeholder="Ex. 1 Main St, New York, NY" required>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <button mat-stroked-button color="primary" matStepperPrevious>Back</button>
+                                    <button mat-raised-button color="primary"
+                                        (click)="btn_Tnext()">Next</button>
+                                </div>
+                            </form>
+                        </mat-step>
+                        <!-- <mat-step [stepControl]="forthFormGroup">
+                            <form [formGroup]="forthFormGroup">
+                                <ng-template matStepLabel>Payment</ng-template>
+                                <div class="fieldset">
+                                    <mat-card>
+                                        <div class="row">
+                                            <div class="col-md-12 col-sm-12 col-6 x justify-content-center">
+
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <div class="menu-box">
+                                                            <div class="side-menu-list">
+                                                                <ul class="menu-items">
+                                                                    <li (click)="goTo('NetBanking')"
+                                                                        [ngClass]="{ 'onActive' :selectedMenu == 'NetBanking'}">
+                                                                        <i class="material-icons">
+                                                                            account_circle
+                                                                        </i>Net Banking
+                                                                    </li>
+                                                                    <li (click)="goTo('PG')"
+                                                                        [ngClass]="{ 'onActive' :selectedMenu == 'PG'}">
+                                                                        <i class="material-icons">
+                                                                            assignment
+
+                                                                        </i> PG/Credit/Debit
+                                                                    </li>
+                                                                    <li (click)="goTo('Upi')"
+                                                                        [ngClass]="{ 'onActive' :selectedMenu == 'Upi'}">
+                                                                       
+                                                                        <i class="material-icons">
+                                                                            swap_horiz
+                                                                        </i> UPI Payment
+                                                                    </li>
+                                                                    <li (click)="goTo('OTC')"
+                                                                        [ngClass]="{ 'onActive' :selectedMenu == 'OTC'}">
+                                                                        
+                                                                        <i class="material-icons">
+                                                                            swap_horiz
+                                                                        </i> Offline(OTC)
+                                                                    </li>
+                                                                    <li (click)="goTo('NEFT')"
+                                                                        [ngClass]="{ 'onActive' :selectedMenu == 'NEFT'}">
+                                                                        
+                                                                        <i class="material-icons">
+                                                                            swap_horiz
+                                                                        </i> NEFT/RTGS
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6" style="margin-top: -50px;">
+                                                        <div class="row">
+                                                            <div class="side-menu-content">
+                                                                <div class="tabs" *ngIf="selectedMenu=='NetBanking' ">
+
+                                                                    <div class="cont-main">
+                                                                        <div class="cont-checkbox col-md-4"
+                                                                            *ngFor="let bank of Banks; index as i">
+                                                                            <input type="radio" name="myRadio"
+                                                                                [id]="'myRadio-' + i" />
+                                                                            <label [for]="'myRadio-' + i">
+                                                                                <img [src]="bank.img" />
+                                                                                <span class="cover-checkbox">
+                                                                                    <svg viewBox="0 0 12 10">
+                                                                                        <polyline
+                                                                                            points="1.5 6 4.5 9 10.5 1">
+                                                                                        </polyline>
+                                                                                    </svg>
+                                                                                </span>
+                                                                                <div class="info">{{ bank.name }}</div>
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3 col-12 col-sm-12" style="border: 1em;">
+                                                        <div class="fieldsetInfo">
+                                                            <div class="row">
+                                                                
+                                                                <p>GRN</p>
+                                                                
+                                                                <p>{{GRN}}</p>
+                                                                
+                                                            </div>
+                                                            <div class="row">
+                                                                
+                                                                <p>Department</p>
+                                                                
+                                                                <p>{{getSharedData.Deptname}}</p>
+                                                            </div>
+                                                            
+                                                            <div class="row">
+                                                               
+                                                                <p>Office</p>
+                                                                
+                                                                <p>{{officeName}}</p>
+                                                            </div>
+                                                            
+                                                            <div class="row">
+                                                                
+                                                                <p>Treasury</p>
+                                                                
+                                                                <p>
+                                                                    {{treasuryName}}
+                                                                </p>
+                                                                
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </mat-card>
+                                </div>
+                                <div class="row">
+                                    <div style="text-align: right">
+                                        <button mat-stroked-button color="primary" matStepperPrevious>Back</button>
+                                        <button class="btn btn-primary" (click)="btn_FinalSubmit()" mat-raised-button
+                                            color="primary">Pay - &#8377; {{TotalAmount}}</button>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </mat-step> -->
+                    </mat-stepper>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="this.loader.getLoading()" class="cssload-container">
+    <div class="cssload-speeding-wheel"></div>
+</div>

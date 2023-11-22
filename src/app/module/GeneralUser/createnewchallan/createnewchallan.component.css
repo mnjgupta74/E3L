@@ -1,0 +1,79 @@
+.fieldset {
+    border: 1px solid #ddd;
+    margin-top: 1em;
+    width: 100%;
+    height: 100%;
+    padding-bottom: 1em;
+  }
+  
+  .fieldset h1 {
+    font-size: 12px;
+    /* text-align: center; */
+    margin-left: 20px;
+  }
+  
+  .fieldset h1 span {
+    display: inline;
+    border: 1px solid #ddd;
+    background: #fff;
+    /* padding: 5px 10px; */
+    position: relative;
+    top: -0.5em;
+  }
+  .fieldset p{
+    padding: 10px 5px 5px 10px;
+  }
+  mat-form-field{
+    padding-top: 20px;
+    margin-left: 20px !important;
+  
+  }
+  .additional-selection {
+    opacity: 0.75;
+    font-size: 0.75em;
+  }
+  .select-container{
+    margin-top:10px;
+  }
+  .showDiv1 {
+    display: flex;
+    margin-block: -22px;
+    flex-direction: row;
+    margin-inline: 20px;
+  }
+/* .........scolling css----*/
+
+.example-1 {
+  position: relative;
+  overflow-y: scroll;
+  height: 300px;
+  width: 100%;
+}  
+
+
+.example-2 {
+    position: relative;
+    /* overflow-y: scroll; */
+    height: 300px;
+    /* width: 100%; */
+}
+/*Components - Toaster*/
+/*-----------------------------*/
+::ng-deep .toast-container {
+  --bs-toast-zindex: 1090 !important;
+  position: absolute !important;
+  z-index: var(--bs-toast-zindex);
+  width: auto;
+  max-width: 100% !important;
+  height: 10% !important;
+  pointer-events: none !important;
+}
+
+::ng-deep .toast-top-right {
+  top: 0px;
+  right: 0px;
+  left: 0px !important;
+  justify-content: center !important;
+  display: flex !important;
+  position: absolute !important;
+}

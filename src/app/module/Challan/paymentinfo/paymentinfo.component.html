@@ -1,0 +1,15 @@
+<p>Your payment are now done.</p>
+
+<mat-toolbar>
+    <span>Data in Page2</span>
+ </mat-toolbar>
+ <mat-card class="my-card">
+    <mat-card-content>   
+         <input  matInput  placeholder="Bank Forwrd encData" [value]="objbanForward.encData"  name="encData" >
+         <!-- <input  matInput  placeholder="TestData Value" [value]="objTestData.Value"  name="Value"> -->
+     </mat-card-content>
+     <!-- <mat-card-content>
+         <button mat-raised-button (click)="Back()" color="primary">Back</button>
+     </mat-card-content> -->
+ </mat-card>
+<button class="btn btn-primary" mat-raised-button color="primary" (click)="btnSuccess()">Success</button>

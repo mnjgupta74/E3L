@@ -1,0 +1,44 @@
+<p>bankresponsereceived works!</p>
+
+
+<mat-toolbar>
+    <span>Data in Page2</span>
+ </mat-toolbar>
+ <mat-card class="my-card">
+    <mat-card-content>   
+         <input  matInput  placeholder="Bank Forwrd encData" [value]="objbankResponse.encData"  name="encData" >
+         <br>
+         GRN:
+         <input  matInput  placeholder="Final Response" [value]="objfinalBankResp.GRN"  name="GRN">
+         <br>
+         Amount:
+         <input  matInput  placeholder="Final Response" [value]="objfinalBankResp.PAID_AMT"  name="PAID_AMT">
+         <br>
+         BankReferenceNo:
+         <input  matInput  placeholder="Final Response" [value]="objfinalBankResp.BankReferenceNo"  name="BankReferenceNo">
+         <br>
+         CIN:
+         <input  matInput  placeholder="Final Response" [value]="objfinalBankResp.CIN"  name="CIN">
+         <br>
+         BANKCODE:
+         <input  matInput  placeholder="Final Response" [value]="objfinalBankResp.BANK_CODE"  name="BANK_CODE">
+         <br>
+         Paid Date:
+         <input  matInput  placeholder="Final Response" [value]="objfinalBankResp.PAID_DATE"  name="PAID_DATE">
+         <br>
+         Status:
+         <input  matInput  placeholder="Final Response" [value]="objfinalBankResp.TRANS_STATUS"  name="TRANS_STATUS">
+         <label>{{objbankResponse.Resp}}</label>
+     </mat-card-content>
+     <!-- this.objfinalBankResp.GRN = response.resp.GRN;
+     this.objfinalBankResp.BANK_CODE = response.resp.BANK_CODE;
+     this.objfinalBankResp.BankReferenceNo = response.resp.BankReferenceNo;
+     this.objfinalBankResp.CIN = response.resp.CIN;
+     this.objfinalBankResp.PAID_AMT = response.resp.PAID_AMT;
+     this.objfinalBankResp.PAID_DATE = response.resp.PAID_DATE;
+     this.objfinalBankResp.TRANS_STATUS = response.resp.TRANS_STATUS; -->
+     <!-- <mat-card-content>
+         <button mat-raised-button (click)="Back()" color="primary">Back</button>
+     </mat-card-content> -->
+ </mat-card>
+<!-- <button class="btn btn-primary" mat-raised-button color="primary" >Success</button> -->

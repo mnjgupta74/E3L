@@ -1,0 +1,122 @@
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-md-5">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-12 d-flex justify-content-center">
+                    <mat-form-field class="w-100" appearance="outline" plceholder="select type For Creating Challan">
+                        <mat-label>Create Challan With</mat-label>
+                        <select matNativeControl required plceholder="select type For Creating Challan"
+                            (change)="changeDepartment($event)">
+                            <option value="0">select type for creating challan</option>
+                            <option value="1">BudgetHead</option>
+                            <option value="2">Department</option>
+                            <option value="3">Purpose</option>
+                            <option value="4">Create Profile</option>
+                        </select>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+    <div class="">
+        <form>
+            <div class="content" [ngSwitch]="dropDownValue">
+                <ng-template [ngSwitchCase]="'1'">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="col-md-12 col-sm-12 col-12 d-flex justify-content-center">
+                                <mat-form-field class="w-100" appearance="outline">
+                                    <input mobMask matInput class="input-control" type="tel"
+                                        placeholder="9999-99-999-99-99" #box style="width:60% ;"
+                                        [formControl]="search" />
+                                    <i class="material-icons" style="position: absolute;right:2px;">search</i>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12 col-12 ">
+                            <div class="showDiv1 justify">
+                                <div class="col-md-9 mb-9">
+                                    <div class="card example-1 scrollbar-ripe-malinka">
+                                        <mat-selection-list (selectionChange)="selectionChange($event.option)">
+                                            <mat-list-option *ngFor="let BudgetHead of $search|async"
+                                                [value]="BudgetHead"
+                                                [selected]="BudgetHeadControl.value && BudgetHeadControl.value?.indexOf(BudgetHead)>=0">
+                                                <span>{{ BudgetHead.schemaName }}</span>
+                                            </mat-list-option>
+                                        </mat-selection-list>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 40px">
+                        <div class="col-md-6 col-sm-12 col-12 ">
+                            <table class="table" style="border-bottom: none;">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th scope="col">Budget Head</th>
+                                        <th scope="col">Schema Code</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let BudgetHeadFinal of final_BudgetHead">
+                                        <td>{{ BudgetHeadFinal.schemaName }}</td>
+                                        <td>{{ BudgetHeadFinal.scheCode }}</td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </ng-template>
+                <ng-template [ngSwitchCase]="'2'">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-12 d-flex justify-content-center">
+                                    <mat-form-field class="w-100" appearance="outline"
+                                        plceholder="select type For Creating Challan">
+                                        <mat-label>Department</mat-label>
+                                        <input type="text" placeholder="Pick one" aria-label="Number" matInput
+                                            [formControl]="myControl" [matAutocomplete]="auto">
+                                        <mat-icon class=""
+                                            style=" position: absolute;right:2px; top:15px">arrow_drop_down</mat-icon>
+                                        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                                            <mat-option *ngFor="let option of filteredOptions | async" [value]="option.DEPTNAMEENGLISH">
+                                                {{option.DEPTNAMEENGLISH}} - {{option.DEPTCODE}} 
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+                <ng-template [ngSwitchCase]="'3'">
+
+                </ng-template>
+                <ng-template [ngSwitchCase]="'4'">
+
+                </ng-template>
+                <ng-template ngSwitchDefault>
+                    <div class="content-wrapper">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 col-12 d-flex justify-content-center">
+                                        Please Select Any Option For making Challan..
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </div>
+        </form>
+    </div>
+</div>

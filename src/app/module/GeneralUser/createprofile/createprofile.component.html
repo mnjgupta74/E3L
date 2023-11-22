@@ -1,0 +1,41 @@
+<div class="container">
+<div class="row">
+    <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-4 col-12 d-flex justify-content-center">
+                    <mat-form-field class="w-100 pad" appearance="outline" >
+                        <mat-label>Department</mat-label>
+                        <select  matNativeControl required placeholder="Select Department" 
+                        [(ngModel)]="SelectedDepartment" (ngModelChange)="changeDepartment($event)">
+                            <option *ngFor="let Dept of Department" 
+                            [ngValue]="Dept">{{Dept.DepartName}}</option>
+                        </select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4 col-12 d-flex justify-content-center">
+                    <mat-form-field class="w-100" appearance="outline">
+                        <mat-label>Major Head</mat-label>
+                        <select  matNativeControl required placeholder="Select MajorHead" 
+                        [(ngModel)]="MajorHead" (ngModelChange)="changeMajorHead($event)">
+                            <option *ngFor="let majorhead of MajorHead" 
+                            [ngValue]="majorhead">{{majorhead.Majorheadname}}</option>
+                        </select>
+                        
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2 col-12 d-flex justify-content-center">
+                    <button class="btn btn-link btn-link-secondary ms-2 float-end" mat-button color="secondary" 
+                    (click)="onMoreHeads()">More Heads</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-5">
+                    
+                </div>
+                <div class="col-md-5"></div>
+                <div class="col-md-2"></div>
+            </div>
+    </div>
+    <div class="col-md-6"></div>
+</div>
+</div>
